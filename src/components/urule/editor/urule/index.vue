@@ -47,12 +47,11 @@ import './NamedReferenceValue.js'
 import './Condition.js'
 import './Rule.js'
 export default {
+  props: ['initData'],
   mounted () {
     setTimeout(() => {
       const container = $(this.$el)
-      container.urule()
-      const dialogContainer = $('<div>')
-      container.append(dialogContainer)
+      container.urule(this.initData)
     }, 100)
   }
 }

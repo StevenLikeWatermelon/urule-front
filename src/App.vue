@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <urule msg="Welcome to Your Vue.js App"/>
+    <urule :initData="initData" msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
@@ -12,6 +12,72 @@ export default {
   name: 'App',
   components: {
     urule
+  },
+  data () {
+    return {
+      initData: {
+        name: 'rule',
+        lhs: {
+          criterion: {
+            criterions: [
+              {
+                op: 'GreaterThen',
+                left: {
+                  leftPart: {
+                    variableName: 'uuu',
+                    variableLabel: 'uuu',
+                    variableCategory: 'test',
+                    datatype: 'String'
+                  },
+                  type: 'variable'
+                },
+                value: {
+                  content: '4444',
+                  valueType: 'Input'
+                },
+                necessaryClassList: []
+              },
+              {
+                op: 'GreaterThen',
+                left: {
+                  leftPart: {
+                    variableName: 'kkk',
+                    variableLabel: 'kkk',
+                    variableCategory: 'test',
+                    datatype: 'String'
+                  },
+                  type: 'variable'
+                },
+                value: {
+                  content: '000',
+                  valueType: 'Input'
+                },
+                necessaryClassList: []
+              },
+              {
+                op: 'GreaterThen',
+                left: {
+                  leftPart: {
+                    keyName: 'test1',
+                    variableName: 'uuu',
+                    variableLabel: 'uuu',
+                    variableCategory: 't1',
+                    datatype: 'String'
+                  },
+                  type: 'parameter'
+                },
+                value: {
+                  content: '444',
+                  valueType: 'Input'
+                },
+                necessaryClassList: []
+              }
+            ],
+            junctionType: 'and'
+          }
+        }
+      }
+    }
   }
 }
 </script>
