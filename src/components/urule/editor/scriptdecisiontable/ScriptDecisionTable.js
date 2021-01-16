@@ -865,7 +865,7 @@ import '../table/manualRowResize.js';
 			$.each(cols,function(index,col){
 				var variableName=col.variableName;
 				if(variableName){
-					xml+="<col num=\""+col.num+"\" width=\""+col.width+"\" type=\""+col.type+"\" var-category=\""+(col.variableCategory=="parameter"?"参数":col.variableCategory)+"\" var-label=\""+col.variableLabel+"\" var=\""+col.variableName+"\" datatype=\""+col.datatype+"\"/>"
+					xml+="<col num=\""+col.num+"\" width=\""+col.width+"\" type=\""+col.type+"\" category=\""+(col.variableCategory=="parameter"?"参数":col.variableCategory)+"\" label=\""+col.variableLabel+"\" var=\""+col.variableName+"\" datatype=\""+col.datatype+"\"/>"
 				}else{
 					xml+="<col num=\""+col.num+"\" width=\""+col.width+"\" type=\""+col.type+"\"/>"	
 				}

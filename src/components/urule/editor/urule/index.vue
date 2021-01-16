@@ -51,12 +51,21 @@ export default {
   mounted () {
     setTimeout(() => {
       const container = $(this.$el)
-      container.urule(this.initData)
+      let initData = null
+      if (this.initData) {
+        const keys = Object.keys(this.initData)
+        if (keys.length > 0) {
+          initData = this.initData
+        }
+      }
+      container.urule(initData)
     }, 100)
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+.urule-container {
+  width: 100%;
+}
 </style>

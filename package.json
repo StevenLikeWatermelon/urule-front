@@ -10,7 +10,9 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "raphael": "^2.3.0",
-    "vue": "^2.6.11"
+    "sass-loader": "^10.1.1",
+    "vue": "^2.6.11",
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

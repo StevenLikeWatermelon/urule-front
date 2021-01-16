@@ -1,8 +1,9 @@
 /**
  * @author GJ
  */
+const convertXml = require('xml-js');
 (function ($) {
-  $.fn.urule = function (initData) {
+  $.fn.urule = function (initData, errorCallback, successCallBack) {
     this.rules = []
     var saveButton = '<div class="btn-group btn-group-sm navbar-btn" style="margin-top:0px;margin-bottom: 0px" role="group" aria-label="...">' +
 							'<button id="saveButton" type="button" class="btn btn-default navbar-btn" ><i class="icon-save"></i> 保存</button>' +
@@ -48,21 +49,8 @@
     })
 
     function save (newVersion) {
-      var xml = '<?xml version="1.0" encoding="UTF-8"?>'
+      var xml = '<?xml ?>'
       xml += '<rule-set>'
-      $.each(parameterLibraries, function (index, item) {
-        xml += '<import-parameter-library path="' + item + '"/>'
-      })
-      $.each(variableLibraries, function (index, item) {
-        xml += '<import-variable-library path="' + item + '"/>'
-      })
-      $.each(constantLibraries, function (index, item) {
-        xml += '<import-constant-library path="' + item + '"/>'
-      })
-      $.each(actionLibraries, function (index, item) {
-        xml += '<import-action-library path="' + item + '"/>'
-      })
-      // xml+=self.remark.toXml();
       try {
         for (var i = 0; i < self.rules.length; i++) {
           var rule = self.rules[i]
@@ -70,11 +58,17 @@
         }
       } catch (error) {
         console.log(error)
-        console.log(error)
+        errorCallback && errorCallback(error)
         return
       }
       xml += '</rule-set>'
-      console.log(xml)
+      var result2 = convertXml.xml2json(xml, { compact: false, spaces: 4, ignoreDeclaration: true, elementsKey: 'children' })
+      if (result2) {
+        const treeAllResult = JSON.parse(result2) || {}
+        const treeResult = treeAllResult.children[0].children[0].children[0].children
+        console.log(treeResult)
+        successCallBack && successCallBack(treeResult)
+      }
     }
     function _addRule (data) {
       var ruleContainer = $("<div class='well' style='margin:5px;padding:8px'></div>")

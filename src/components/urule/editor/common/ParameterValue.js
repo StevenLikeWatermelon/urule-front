@@ -1,152 +1,152 @@
 /**
  * @author GJ
  */
-urule.ParameterValue=function(arithmetic,data,act,functionProperty){
-	this.arithmetic=arithmetic;
-	this.container=$("<span>");
+urule.ParameterValue = function (arithmetic, data, act, functionProperty) {
+  this.arithmetic = arithmetic
+	this.container = $('<span>')
 
-    var self=this;
-    this.label=generateContainer();
-    this.functionProperty=functionProperty;
-    this.container.append(this.label);
+    var self = this
+    this.label = generateContainer()
+    this.functionProperty = functionProperty
+    this.container.append(this.label)
     this.label.css({
-		"color":"darkcyan"
-	});
-	URule.setDomContent(this.label,"请选择参数");
-	if(arithmetic){
-		this.container.append(arithmetic.getContainer());		
+    color: 'darkcyan'
+  })
+	URule.setDomContent(this.label, '请选择参数')
+	if (arithmetic) {
+    this.container.append(arithmetic.getContainer())		
 	}
-	if(data){
-		this.initData(data);
+  if (data) {
+    this.initData(data)
 	}
-	window._ParameterValueArray.push(this);
-	this.act=act;
-	this.initMenu();
+  window._ParameterValueArray.push(this)
+	this.act = act
+	this.initMenu()
 };
 
-urule.ParameterValue.prototype.getDisplayContainer=function(){
-	var container=$("<span>"+this.category+"."+this.variableLabel+"</span>");
-	if(this.arithmetic){
-		var dis=this.arithmetic.getDisplayContainer();
-		if(dis){
-			container.append(dis);			
-		}	
-	}
-	return container;
+urule.ParameterValue.prototype.getDisplayContainer = function () {
+  var container = $('<span>' + this.category + '.' + this.variableLabel + '</span>')
+	if (this.arithmetic) {
+    var dis = this.arithmetic.getDisplayContainer()
+		if (dis) {
+      container.append(dis)			
+		}
+  }
+  return container
 };
 
-urule.ParameterValue.prototype.matchAct=function(act){
-	if(!this.act){
-		return true;
+urule.ParameterValue.prototype.matchAct = function (act) {
+  if (!this.act) {
+    return true
 	}
-	if(act.indexOf(this.act)>-1){
-		return true;
+  if (act.indexOf(this.act) > -1) {
+    return true
 	}
-	return false;
+  return false
 };
-urule.ParameterValue.prototype.initMenu=function(variableLibraries){
-	var data=window._uruleEditorParameterLibraries;
-	if(variableLibraries){
-		data=variableLibraries;
+urule.ParameterValue.prototype.initMenu = function (variableLibraries) {
+  var data = window._uruleEditorParameterLibraries
+	if (variableLibraries) {
+    data = variableLibraries
 	}
-	if(!data){
-		return;
+  if (!data) {
+    return
 	}
-	var self,onCategoryClick,onParameterClick,config;
-	self=this;
-	onCategoryClick=function(menuItem){
-		self.setValue({variableCategory:menuItem.label,variables:menuItem.variables});
+  var self, onCategoryClick, onParameterClick, config
+	self = this
+	onCategoryClick = function (menuItem) {
+    self.setValue({ variableCategory: menuItem.label, variables: menuItem.variables })
 	};
-	onParameterClick=function(menuItem){
-		self.setValue({
-			variables:menuItem.parent.parent.variables,
-			variableCategory:menuItem.parent.parent.label,
-			variableLabel:menuItem.label,
-			variableName:menuItem.name,
-			datatype:menuItem.datatype
-		});
+  onParameterClick = function (menuItem) {
+    self.setValue({
+      variables: menuItem.parent.parent.variables,
+      variableCategory: menuItem.parent.parent.label,
+      variableLabel: menuItem.label,
+      variableName: menuItem.name,
+      datatype: menuItem.datatype
+    })
 	};
-	config={menuItems:[]};
-	$.each(data,function(index,categories){
-		$.each(categories,function(i,category){
-			var variables=category.variables;
-			if(self.functionProperty && self.category){
-				if(category.name==self.category){
-					self.functionProperty.initMenu(variables);
+  config = { menuItems: [] }
+	$.each(data, function (index, categories) {
+    $.each(categories, function (i, category) {
+      var variables = category.variables
+			if (self.functionProperty && self.category) {
+        if (category.name == self.category) {
+          self.functionProperty.initMenu(variables)
 				}
-			}
-			var menuItem={
-				label:category.name,
-				variables:variables,
-				onClick:onCategoryClick
-			}
-			$.each(variables||[],function(j,variable){
-				if(!menuItem.subMenu){
-					menuItem.subMenu={menuItems:[]};
+      }
+      var menuItem = {
+        label: category.name,
+        variables: variables,
+        onClick: onCategoryClick
+      }
+      $.each(variables || [], function (j, variable) {
+        if (!menuItem.subMenu) {
+          menuItem.subMenu = { menuItems: [] }
 				}
-				if(self.matchAct(variable.act)){
-					var subMenuItem={
-						name:variable.name,
-						label:variable.label,
-						datatype:variable.type,
-						act:variable.act,
-						variables:variables,
-						onClick:onParameterClick
-					};
-					menuItem.subMenu.menuItems.push(subMenuItem);
+        if (self.matchAct(variable.act)) {
+          var subMenuItem = {
+            name: variable.name,
+            label: variable.label,
+            datatype: variable.type,
+            act: variable.act,
+            variables: variables,
+            onClick: onParameterClick
+          }
+					menuItem.subMenu.menuItems.push(subMenuItem)
 				}
-			});
-			config.menuItems.push(menuItem);
-		});
-	});
-	if(self.menu){
-		self.menu.setConfig(config);
-	}else{
-		self.menu=new URule.menu.Menu(config);
+      })
+			config.menuItems.push(menuItem)
+		})
+	})
+	if (self.menu) {
+    self.menu.setConfig(config)
+	}else {
+    self.menu = new URule.menu.Menu(config)
 	}
-	this.label.click(function(e){
-		self.menu.show(e);
-	});
+  this.label.click(function (e) {
+    self.menu.show(e)
+	})
 };
-urule.ParameterValue.prototype.setValue=function(data){
-	var self=this;
-	this.category=data["variableCategory"];
-	this.variableName=data["variableName"];
-	this.variableLabel=data["variableLabel"];
-	this.datatype=data["datatype"];
-	if(this.functionProperty){
-		this.functionProperty.initMenu(data["variables"]);			
+urule.ParameterValue.prototype.setValue = function (data) {
+  var self = this
+	this.category = data.variableCategory;
+  this.variableName = data.variableName;
+  this.variableLabel = data.variableLabel;
+  this.datatype = data.datatype;
+  if (this.functionProperty) {
+    this.functionProperty.initMenu(data.variables)			
 	}
-	if(this.variableLabel){
-		URule.setDomContent(this.label,'参数.' + this.category+"."+this.variableLabel);
-	}else{
-		URule.setDomContent(this.label,'参数.' + this.category);
+  if (this.variableLabel) {
+    URule.setDomContent(this.label, '参数.' + this.category + '.' + this.variableLabel)
+	}else {
+    URule.setDomContent(this.label, '参数.' + this.category)
 	}
-};
-urule.ParameterValue.prototype.initData=function(data){
-	this.setValue(data);
-	if(this.arithmetic){
-		this.arithmetic.initData(data["arithmetic"]);			
+}
+urule.ParameterValue.prototype.initData = function (data) {
+  this.setValue(data)
+	if (this.arithmetic) {
+    this.arithmetic.initData(data.arithmetic)			
 	}
-};
+}
 
-urule.ParameterValue.prototype.toXml=function(){
-	if(!this.category || this.category==""){
-		throw "参数不能为空！";
-	}
-	var xml="var-category=\""+this.category+"\"";
-	if(this.variableName){
-		xml+=" var=\""+this.variableName+"\" var-label=\""+this.variableLabel+"\" datatype=\""+this.datatype+"\"";
-	}
-	return xml;
+urule.ParameterValue.prototype.toXml = function () {
+  if (!this.category || this.category == '') {
+    throw '参数不能为空！';
+  }
+  var xml = 'category="' + this.category + '"';
+  if (this.variableName) {
+    xml += ' var="' + this.variableName + '" label="' + this.variableLabel + '" datatype="' + this.datatype + '"';
+  }
+  return xml
 };
-urule.ParameterValue.prototype.getType=function(){
-	if(this.variableName){
-		return "Parameter";
-	}else{
-		return "ParameterCategory";
-	}
-};
-urule.ParameterValue.prototype.getContainer=function(){
-	return this.container;
+urule.ParameterValue.prototype.getType = function () {
+  if (this.variableName) {
+    return 'Parameter';
+  }else {
+    return 'ParameterCategory';
+  }
+}
+urule.ParameterValue.prototype.getContainer = function () {
+  return this.container
 };
