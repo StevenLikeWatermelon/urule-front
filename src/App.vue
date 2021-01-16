@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <urule :initData="initData" />
+    <urule :initData="initData" @success="getSuccess" @error="getError"/>
   </div>
 </template>
 
@@ -16,6 +16,14 @@ export default {
   data () {
     return {
       initData: {}
+    }
+  },
+  methods: {
+    getSuccess (data) {
+      console.log(data)
+    },
+    getError (error) {
+      console.log(error)
     }
   }
 }

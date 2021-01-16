@@ -3,7 +3,7 @@
  */
 const convertXml = require('xml-js');
 (function ($) {
-  $.fn.urule = function (initData, errorCallback, successCallBack) {
+  $.fn.urule = function (initData, successCallBack, errorCallback) {
     this.rules = []
     var saveButton = '<div class="btn-group btn-group-sm navbar-btn" style="margin-top:0px;margin-bottom: 0px" role="group" aria-label="...">' +
 							'<button id="saveButton" type="button" class="btn btn-default navbar-btn" ><i class="icon-save"></i> 保存</button>' +
@@ -57,16 +57,14 @@ const convertXml = require('xml-js');
           xml += rule.toXml()
         }
       } catch (error) {
-        console.log(error)
         errorCallback && errorCallback(error)
         return
       }
       xml += '</rule-set>'
-      var result2 = convertXml.xml2json(xml, { compact: false, spaces: 4, ignoreDeclaration: true, elementsKey: 'children' })
+      var result2 = convertXml.xml2json(xml, { compact: false, spaces: 4, ignoreDeclaration: true, elementsKey: 'children', nameKey: 'nodeTyle' })
       if (result2) {
         const treeAllResult = JSON.parse(result2) || {}
         const treeResult = treeAllResult.children[0].children[0].children[0].children
-        console.log(treeResult)
         successCallBack && successCallBack(treeResult)
       }
     }

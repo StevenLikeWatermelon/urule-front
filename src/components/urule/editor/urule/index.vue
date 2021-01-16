@@ -58,8 +58,16 @@ export default {
           initData = this.initData
         }
       }
-      container.urule(initData)
+      container.urule(initData, this.successCallBack, this.errorCallback)
     }, 100)
+  },
+  methods: {
+    successCallBack (data) {
+      this.$emit('success', data)
+    },
+    errorCallback (error) {
+      this.$emit('error', error)
+    }
   }
 }
 </script>
