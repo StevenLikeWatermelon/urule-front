@@ -2,151 +2,103 @@
  * @author GJ
  */
 urule.ParameterValue = function (arithmetic, data, act, functionProperty) {
-  this.arithmetic = arithmetic
-	this.container = $('<span>')
+  this.container = $('<span>')
 
-    var self = this
-    this.label = generateContainer()
-    this.functionProperty = functionProperty
-    this.container.append(this.label)
-    this.label.css({
+  var self = this
+  this.label = generateContainer()
+  this.container.append(this.label)
+  this.label.css({
     color: 'darkcyan'
   })
-	URule.setDomContent(this.label, '请选择参数')
-	if (arithmetic) {
-    this.container.append(arithmetic.getContainer())		
-	}
+  URule.setDomContent(this.label, '请选择参数')
   if (data) {
     this.initData(data)
-	}
+  }
   window._ParameterValueArray.push(this)
-	this.act = act
-	this.initMenu()
-};
+  this.act = act
+  this.initMenu()
+}
 
 urule.ParameterValue.prototype.getDisplayContainer = function () {
   var container = $('<span>' + this.category + '.' + this.variableLabel + '</span>')
-	if (this.arithmetic) {
-    var dis = this.arithmetic.getDisplayContainer()
-		if (dis) {
-      container.append(dis)			
-		}
-  }
   return container
-};
+}
 
-urule.ParameterValue.prototype.matchAct = function (act) {
-  if (!this.act) {
-    return true
-	}
-  if (act.indexOf(this.act) > -1) {
-    return true
-	}
-  return false
-};
 urule.ParameterValue.prototype.initMenu = function (variableLibraries) {
-  var data = window._uruleEditorParameterLibraries
-	if (variableLibraries) {
-    data = variableLibraries
-	}
-  if (!data) {
-    return
-	}
-  var self, onCategoryClick, onParameterClick, config
-	self = this
-	onCategoryClick = function (menuItem) {
-    self.setValue({ variableCategory: menuItem.label, variables: menuItem.variables })
-	};
-  onParameterClick = function (menuItem) {
-    self.setValue({
-      variables: menuItem.parent.parent.variables,
-      variableCategory: menuItem.parent.parent.label,
-      variableLabel: menuItem.label,
-      variableName: menuItem.name,
-      datatype: menuItem.datatype
-    })
-	};
-  config = { menuItems: [] }
-	$.each(data, function (index, categories) {
-    $.each(categories, function (i, category) {
-      var variables = category.variables
-			if (self.functionProperty && self.category) {
-        if (category.name == self.category) {
-          self.functionProperty.initMenu(variables)
-				}
-      }
-      var menuItem = {
-        label: category.name,
-        variables: variables,
-        onClick: onCategoryClick
-      }
-      $.each(variables || [], function (j, variable) {
-        if (!menuItem.subMenu) {
-          menuItem.subMenu = { menuItems: [] }
-				}
-        if (self.matchAct(variable.act)) {
-          var subMenuItem = {
-            name: variable.name,
-            label: variable.label,
-            datatype: variable.type,
-            act: variable.act,
-            variables: variables,
-            onClick: onParameterClick
-          }
-					menuItem.subMenu.menuItems.push(subMenuItem)
-				}
-      })
-			config.menuItems.push(menuItem)
-		})
-	})
-	if (self.menu) {
-    self.menu.setConfig(config)
-	}else {
-    self.menu = new URule.menu.Menu(config)
-	}
-  this.label.click(function (e) {
-    self.menu.show(e)
-	})
-};
+  // var data = window._uruleEditorParameterLibraries
+  // if (variableLibraries) {
+  //   data = variableLibraries
+  // }
+  // if (!data) {
+  //   return
+  // }
+  // var self, onCategoryClick, onParameterClick, config
+  // self = this
+  // onCategoryClick = function (menuItem) {
+  //   self.setValue({ variableCategory: menuItem.label, variables: menuItem.variables })
+  // }
+  // onParameterClick = function (menuItem) {
+  //   self.setValue({
+  //     variables: menuItem.parent.parent.variables,
+  //     variableCategory: menuItem.parent.parent.label,
+  //     variableLabel: menuItem.label,
+  //     variableName: menuItem.name,
+  //     datatype: menuItem.datatype
+  //   })
+  // }
+  // config = { menuItems: [] }
+  // $.each(data, function (index, categories) {
+  //   $.each(categories, function (i, category) {
+  //     var variables = category.variables
+  //     var menuItem = {
+  //       label: category.name,
+  //       variables: variables,
+  //       onClick: onCategoryClick
+  //     }
+  //     $.each(variables || [], function (j, variable) {
+  //       if (!menuItem.subMenu) {
+  //         menuItem.subMenu = { menuItems: [] }
+  //       }
+  //       if (self.matchAct(variable.act)) {
+  //         var subMenuItem = {
+  //           name: variable.name,
+  //           label: variable.label,
+  //           datatype: variable.type,
+  //           act: variable.act,
+  //           variables: variables,
+  //           onClick: onParameterClick
+  //         }
+  //         menuItem.subMenu.menuItems.push(subMenuItem)
+  //       }
+  //     })
+  //     config.menuItems.push(menuItem)
+  //   })
+  // })
+  // if (self.menu) {
+  //   self.menu.setConfig(config)
+  // } else {
+  //   self.menu = new URule.menu.Menu(config)
+  // }
+  this.label.click((e) => {
+    window
+  })
+}
 urule.ParameterValue.prototype.setValue = function (data) {
   var self = this
-	this.category = data.variableCategory;
-  this.variableName = data.variableName;
-  this.variableLabel = data.variableLabel;
-  this.datatype = data.datatype;
-  if (this.functionProperty) {
-    this.functionProperty.initMenu(data.variables)			
-	}
-  if (this.variableLabel) {
-    URule.setDomContent(this.label, '参数.' + this.category + '.' + this.variableLabel)
-	}else {
-    URule.setDomContent(this.label, '参数.' + this.category)
-	}
+  this.category = data.variableCategory
+  URule.setDomContent(this.label, '参数.' + this.category)
 }
 urule.ParameterValue.prototype.initData = function (data) {
   this.setValue(data)
-	if (this.arithmetic) {
-    this.arithmetic.initData(data.arithmetic)			
-	}
 }
 
 urule.ParameterValue.prototype.toXml = function () {
   if (!this.category || this.category == '') {
-    throw '参数不能为空！';
+    throw '参数不能为空！'
   }
-  var xml = 'category="' + this.category + '"';
-  if (this.variableName) {
-    xml += ' var="' + this.variableName + '" label="' + this.variableLabel + '" datatype="' + this.datatype + '"';
-  }
+  var xml = 'category="' + this.category + '"'
   return xml
-};
-urule.ParameterValue.prototype.getType = function () {
-  if (this.variableName) {
-    return 'Parameter';
-  }else {
-    return 'ParameterCategory';
-  }
 }
 urule.ParameterValue.prototype.getContainer = function () {
   return this.container
-};
+}

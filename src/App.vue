@@ -15,7 +15,32 @@ export default {
   },
   data () {
     return {
-      initData: {}
+      initData: {
+        name: 'rule',
+        lhs: {
+          criterion: {
+            criterions: [
+              {
+                op: 'GreaterThen',
+                left: {
+                  leftPart: {
+                    keyName: 'test1',
+                    variableCategory: 't1',
+                    datatype: 'String'
+                  },
+                  type: 'parameter'
+                },
+                value: {
+                  content: '444',
+                  valueType: 'Input'
+                },
+                necessaryClassList: []
+              }
+            ],
+            junctionType: 'and'
+          }
+        }
+      }
     }
   },
   methods: {
