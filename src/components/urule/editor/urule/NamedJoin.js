@@ -2,7 +2,7 @@
  * @author GJ
  */
 
-urule.NamedJoin = function (context) {
+urule.NamedJoin = function(context) {
   this.type = 'and'
   this.context = context
   window._VariableValueArray.push(this)
@@ -22,14 +22,14 @@ urule.NamedJoin = function (context) {
   this.container.append(namedEditor)
   namedEditor.hide()
   var self = this
-  this.namedLabel.click(function () {
+  this.namedLabel.click(function() {
     self.namedLabel.hide()
     namedEditor.css('display', 'inline')
     namedEditor.val(self.referenceName)
     namedEditor.focus()
     self.resetItemPosition(0, null)
   })
-  namedEditor.blur(function () {
+  namedEditor.blur(function() {
     if (self.referenceName && self.referenceName.length > 0) {
       self.context.deleteFromNamedMap(self.referenceName)
     }
@@ -70,7 +70,7 @@ urule.NamedJoin = function (context) {
   this.joinContainer.append(this.joinLabel)
 }
 
-urule.NamedJoin.prototype.initMenu = function (variableLibraries) {
+urule.NamedJoin.prototype.initMenu = function(variableLibraries) {
   var data = window._uruleEditorVariableLibraries
   if (variableLibraries) {
     data = variableLibraries
@@ -85,9 +85,9 @@ urule.NamedJoin.prototype.initMenu = function (variableLibraries) {
       var menuItem = {
         label: category.name,
         category: category,
-        onClick: function (item) {
+        onClick: function(item) {
           if (self.children.length > 0) {
-            bootbox.confirm('当前节点下已配置了条件，此操作将会清这些条件，你确定吗？', function (result) {
+            bootbox.confirm('当前节点下已配置了条件，此操作将会清这些条件，你确定吗？', function(result) {
               if (result) {
                 self.variableCategory = item.category
                 self.variableCategoryName = item.category.name
@@ -122,7 +122,7 @@ urule.NamedJoin.prototype.initMenu = function (variableLibraries) {
   } else {
     self.categoryMenu = new URule.menu.Menu(config)
   }
-  this.variableCategoryLabel.click(function (e) {
+  this.variableCategoryLabel.click(function(e) {
     if (!self.referenceName) {
       bootbox.alert('请先输入引用名称.')
       return
@@ -155,7 +155,7 @@ urule.NamedJoin.prototype.initMenu = function (variableLibraries) {
   }
 }
 
-urule.NamedJoin.prototype.initData = function (data) {
+urule.NamedJoin.prototype.initData = function(data) {
   this.referenceName = data.referenceName
   this.variableCategoryName = data.variableCategory
   URule.setDomContent(this.namedLabel, this.referenceName + ':')
@@ -170,7 +170,7 @@ urule.NamedJoin.prototype.initData = function (data) {
     newConnection.getCondition().initData(item)
   }
 }
-urule.NamedJoin.prototype.setType = function (type) {
+urule.NamedJoin.prototype.setType = function(type) {
   this.type = type
   if (type === 'or') {
     URule.setDomContent(this.joinLabel, '或者')
@@ -178,37 +178,37 @@ urule.NamedJoin.prototype.setType = function (type) {
     URule.setDomContent(this.joinLabel, '并且')
   }
 }
-urule.NamedJoin.prototype.init = function (parentConnection) {
+urule.NamedJoin.prototype.init = function(parentConnection) {
   if (parentConnection) {
     this.parentConnection = parentConnection
     this.parent = parentConnection.getParentJoin()
   }
   var joinArrow = $('<i class="glyphicon glyphicon-chevron-down rule-join-node"></i>')
   var self = this
-  var onClick = function (menu) {
+  var onClick = function(menu) {
     self.setOperator(menu.name)
   }
   self.menu = new URule.menu.Menu({
     menuItems: [{
       label: '并且',
-      onClick: function () {
+      onClick: function() {
         self.setType('and')
       }
     }, {
       label: '或者',
-      onClick: function () {
+      onClick: function() {
         self.setType('or')
       }
     }, {
       label: '添加条件',
-      onClick: function () {
+      onClick: function() {
         self.addItem(false)
       }
     }, {
       label: '删除',
-      onClick: function () {
+      onClick: function() {
         if (self.children.length > 0) {
-          console.log('请先删除当前连接下子元素！')
+          window.App.$message.error('请先删除当前连接下子元素')
           return false
         }
         if (parentConnection) {
@@ -228,12 +228,12 @@ urule.NamedJoin.prototype.init = function (parentConnection) {
       }
     }]
   })
-  this.joinContainer.click(function (e) {
+  this.joinContainer.click(function(e) {
     self.menu.show(e)
   })
   this.joinContainer.append(joinArrow)
 }
-urule.NamedJoin.prototype.removeConnection = function (connection) {
+urule.NamedJoin.prototype.removeConnection = function(connection) {
   var pos = this.children.indexOf(connection)
   if (this.children.length > 1) {
     this.resetItemPosition(pos + 1, false)
@@ -242,7 +242,7 @@ urule.NamedJoin.prototype.removeConnection = function (connection) {
   this.children.splice(pos, 1)
   this.resetContainerSize()
 }
-urule.NamedJoin.prototype.addItem = function (isJoin) {
+urule.NamedJoin.prototype.addItem = function(isJoin) {
   if (!this.variableCategoryName || !this.referenceName) {
     bootbox.alert('请先定义变量引用名及变量对象!')
     return
@@ -270,7 +270,7 @@ urule.NamedJoin.prototype.addItem = function (isJoin) {
   this.resetContainerSize()
   return connection
 }
-urule.NamedJoin.prototype.toXml = function () {
+urule.NamedJoin.prototype.toXml = function() {
   if (!this.referenceName || !this.variableCategoryName) {
     throw '请定义引用条件信息.'
   }
@@ -282,7 +282,7 @@ urule.NamedJoin.prototype.toXml = function () {
   xml += '</named-atom>'
   return xml
 }
-urule.NamedJoin.prototype.resetItemPosition = function (index, add) {
+urule.NamedJoin.prototype.resetItemPosition = function(index, add) {
   if (index == -1) {
     return
   }
@@ -313,7 +313,7 @@ urule.NamedJoin.prototype.resetItemPosition = function (index, add) {
     parentJoin.resetItemPosition(pos + 1, add)
   }
 }
-urule.NamedJoin.prototype.resetContainerSize = function () {
+urule.NamedJoin.prototype.resetContainerSize = function() {
   var container = this.context.getCanvas()
   var height = container.css('height')
   height = parseInt(height)
@@ -324,7 +324,7 @@ urule.NamedJoin.prototype.resetContainerSize = function () {
     height: totalHeight + 'px'
   })
 }
-urule.NamedJoin.prototype.getChildrenCount = function () {
+urule.NamedJoin.prototype.getChildrenCount = function() {
   var total = 0
   for (var i = 0; i < this.children.length; i++) {
     var child = this.children[i].getJoin()
@@ -340,7 +340,7 @@ urule.NamedJoin.prototype.getChildrenCount = function () {
   }
   return total
 }
-urule.NamedJoin.prototype.initTopJoin = function (container) {
+urule.NamedJoin.prototype.initTopJoin = function(container) {
   var left = 5
   var top = 5
   this.joinContainer.css({
@@ -351,9 +351,9 @@ urule.NamedJoin.prototype.initTopJoin = function (container) {
   container.append(this.joinContainer)
   this.context.setRootJoin(this)
 }
-urule.NamedJoin.prototype.getChildren = function () {
+urule.NamedJoin.prototype.getChildren = function() {
   return this.children
 }
-urule.NamedJoin.prototype.getContainer = function () {
+urule.NamedJoin.prototype.getContainer = function() {
   return this.container
 }

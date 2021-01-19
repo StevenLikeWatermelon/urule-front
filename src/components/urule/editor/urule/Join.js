@@ -1,7 +1,7 @@
 /**
  * @author GJ
  */
-urule.Join = function (context) {
+urule.Join = function(context) {
   this.type = 'and'
   this.context = context
   this.H = 30
@@ -11,7 +11,7 @@ urule.Join = function (context) {
   this.joinLabel = $("<span style='font-size: 11pt'>并且</span>")
   this.joinContainer.append(this.joinLabel)
 }
-urule.Join.prototype.initData = function (data) {
+urule.Join.prototype.initData = function(data) {
   var criterions = data.criterions
   this.setType(data.junctionType)
   if (!criterions) {
@@ -35,7 +35,7 @@ urule.Join.prototype.initData = function (data) {
     }
   }
 }
-urule.Join.prototype.setType = function (type) {
+urule.Join.prototype.setType = function(type) {
   this.type = type
   if (type == 'or') {
     URule.setDomContent(this.joinLabel, '或者')
@@ -43,35 +43,35 @@ urule.Join.prototype.setType = function (type) {
     URule.setDomContent(this.joinLabel, '并且')
   }
 }
-urule.Join.prototype.init = function (parentConnection) {
+urule.Join.prototype.init = function(parentConnection) {
   if (parentConnection) {
     this.parentConnection = parentConnection
     this.parent = parentConnection.getParentJoin()
   }
   var joinArrow = $('<i class="glyphicon glyphicon-chevron-down rule-join-node"></i>')
   var self = this
-  var onClick = function (menu) {
+  var onClick = function(menu) {
     self.setOperator(menu.name)
   }
   self.menu = new URule.menu.Menu({
     menuItems: [{
       label: '并且',
-      onClick: function () {
+      onClick: function() {
         self.setType('and')
       }
     }, {
       label: '或者',
-      onClick: function () {
+      onClick: function() {
         self.setType('or')
       }
     }, {
       label: '添加条件',
-      onClick: function () {
+      onClick: function() {
         self.addItem(false)
       }
     }, {
       label: '添加联合条件',
-      onClick: function () {
+      onClick: function() {
         self.addItem(true)
       }
     },
@@ -83,9 +83,9 @@ urule.Join.prototype.init = function (parentConnection) {
     // },
     {
       label: '删除',
-      onClick: function () {
+      onClick: function() {
         if (self.children.length > 0) {
-          console.log('请先删除当前连接下子元素')
+          window.App.$message.error('请先删除当前连接下子元素')
           return false
         }
         if (parentConnection) {
@@ -97,13 +97,13 @@ urule.Join.prototype.init = function (parentConnection) {
       }
     }]
   })
-  this.joinContainer.click(function (e) {
+  this.joinContainer.click(function(e) {
     self.menu.show(e)
   })
 
   this.joinContainer.append(joinArrow)
 }
-urule.Join.prototype.removeConnection = function (connection) {
+urule.Join.prototype.removeConnection = function(connection) {
   var pos = this.children.indexOf(connection)
   if (this.children.length > 1) {
     this.resetItemPosition(pos + 1, false)
@@ -112,7 +112,7 @@ urule.Join.prototype.removeConnection = function (connection) {
   this.children.splice(pos, 1)
   this.resetContainerSize()
 }
-urule.Join.prototype.addItem = function (isJoin) {
+urule.Join.prototype.addItem = function(isJoin) {
   var childrenCount = this.getChildrenCount()
   if (childrenCount > 0 && this.parent) {
     var parentChildren = this.parent.getChildren()
@@ -135,7 +135,7 @@ urule.Join.prototype.addItem = function (isJoin) {
   this.resetContainerSize()
   return connection
 }
-urule.Join.prototype.toXml = function () {
+urule.Join.prototype.toXml = function() {
   var xml = '<' + this.type + '>'
   for (var i = 0; i < this.children.length; i++) {
     var conn = this.children[i]
@@ -144,7 +144,7 @@ urule.Join.prototype.toXml = function () {
   xml += '</' + this.type + '>'
   return xml
 }
-urule.Join.prototype.resetItemPosition = function (index, add) {
+urule.Join.prototype.resetItemPosition = function(index, add) {
   if (index == -1) {
     return
   }
@@ -167,7 +167,7 @@ urule.Join.prototype.resetItemPosition = function (index, add) {
     parentJoin.resetItemPosition(pos + 1, add)
   }
 }
-urule.Join.prototype.resetContainerSize = function () {
+urule.Join.prototype.resetContainerSize = function() {
   var container = this.context.getCanvas()
   var height = container.css('height')
   height = parseInt(height)
@@ -178,7 +178,7 @@ urule.Join.prototype.resetContainerSize = function () {
     height: totalHeight + 'px'
   })
 }
-urule.Join.prototype.getChildrenCount = function () {
+urule.Join.prototype.getChildrenCount = function() {
   var total = 0
   for (var i = 0; i < this.children.length; i++) {
     var child = this.children[i].getJoin()
@@ -194,7 +194,7 @@ urule.Join.prototype.getChildrenCount = function () {
   }
   return total
 }
-urule.Join.prototype.initTopJoin = function (container) {
+urule.Join.prototype.initTopJoin = function(container) {
   var left = 5
   var top = 5
   this.joinContainer.css({
@@ -205,9 +205,9 @@ urule.Join.prototype.initTopJoin = function (container) {
   container.append(this.joinContainer)
   this.context.setRootJoin(this)
 }
-urule.Join.prototype.getChildren = function () {
+urule.Join.prototype.getChildren = function() {
   return this.children
 }
-urule.Join.prototype.getContainer = function () {
+urule.Join.prototype.getContainer = function() {
   return this.joinContainer
 }

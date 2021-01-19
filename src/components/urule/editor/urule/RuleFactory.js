@@ -2,8 +2,14 @@
  * @author GJ
  */
 const convertXml = require('xml-js');
-(function ($) {
-  $.fn.urule = function (initData, successCallBack, errorCallback) {
+// function transKeysExcced(originData) {
+//   originData.
+//   if (condition) {
+
+//   }
+// }
+(function($) {
+  $.fn.urule = function(initData, successCallBack, errorCallback) {
     this.rules = []
     var saveButton = '<div class="btn-group btn-group-sm navbar-btn" style="margin-top:0px;margin-bottom: 0px" role="group" aria-label="...">' +
 							'<button id="saveButton" type="button" class="btn btn-default navbar-btn" ><i class="icon-save"></i> 保存</button>' +
@@ -15,12 +21,12 @@ const convertXml = require('xml-js');
     })
     this.append(toolbar)
     var self = this
-    $('#addRuleButton').click(function () {
+    $('#addRuleButton').click(function() {
       var rule = _addRule()
       rule.initTopJoin()
     })
 
-    $('#saveButton').click(function () {
+    $('#saveButton').click(function() {
       save(false)
     })
 
@@ -29,9 +35,9 @@ const convertXml = require('xml-js');
     var _this = this
     this.sortable({
       delay: 200,
-      update: function (event, ui) {
+      update: function(event, ui) {
         var children = _this.children('div')
-        children.each(function (index, div) {
+        children.each(function(index, div) {
           const item = $(div); const id = item.prop('id'); const rules = _this.rules; let targetRule = null
           for (const rule of rules) {
             if (rule.uuid === id) {
@@ -48,7 +54,7 @@ const convertXml = require('xml-js');
       }
     })
 
-    function save (newVersion) {
+    function save() {
       var xml = '<?xml ?>'
       xml += '<rule-set>'
       try {
@@ -64,21 +70,22 @@ const convertXml = require('xml-js');
       var result2 = convertXml.xml2json(xml, { compact: false, spaces: 4, ignoreDeclaration: true, elementsKey: 'children', nameKey: 'nodeTyle' })
       if (result2) {
         const treeAllResult = JSON.parse(result2) || {}
-        const treeResult = treeAllResult.children[0].children[0].children[0].children
+        const treeResult = treeAllResult.children[0].children[0].children[0].children[0]
+        // const translatedData = transKeysExcced(treeResult)
         successCallBack && successCallBack(treeResult)
       }
     }
-    function _addRule (data) {
+    function _addRule(data) {
       var ruleContainer = $("<div class='well' style='margin:5px;padding:8px'></div>")
       self.prepend(ruleContainer)
       var rule = new urule.Rule(self, ruleContainer, data)
       self.rules.push(rule)
 
       return rule
-    };
+    }
 
-    function _loadRulesetFileData () {
-      setTimeout(function () {
+    function _loadRulesetFileData() {
+      setTimeout(function() {
         window.refreshVariableLibraries()
         window.refreshParameterLibraries()
         if (initData) {

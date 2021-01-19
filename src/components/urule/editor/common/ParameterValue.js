@@ -1,7 +1,7 @@
 /**
  * @author GJ
  */
-urule.ParameterValue = function (arithmetic, data, act, functionProperty) {
+urule.ParameterValue = function(arithmetic, data, act, functionProperty) {
   this.container = $('<span>')
 
   var self = this
@@ -19,12 +19,12 @@ urule.ParameterValue = function (arithmetic, data, act, functionProperty) {
   this.initMenu()
 }
 
-urule.ParameterValue.prototype.getDisplayContainer = function () {
+urule.ParameterValue.prototype.getDisplayContainer = function() {
   var container = $('<span>' + this.category + '.' + this.variableLabel + '</span>')
   return container
 }
 
-urule.ParameterValue.prototype.initMenu = function (variableLibraries) {
+urule.ParameterValue.prototype.initMenu = function(variableLibraries) {
   // var data = window._uruleEditorParameterLibraries
   // if (variableLibraries) {
   //   data = variableLibraries
@@ -80,25 +80,27 @@ urule.ParameterValue.prototype.initMenu = function (variableLibraries) {
   //   self.menu = new URule.menu.Menu(config)
   // }
   this.label.click((e) => {
-    window
+    window.showSelectParameterMenu((selectValue) => {
+      this.setValue(selectValue)
+    })
   })
 }
-urule.ParameterValue.prototype.setValue = function (data) {
+urule.ParameterValue.prototype.setValue = function(data) {
   var self = this
   this.category = data.variableCategory
   URule.setDomContent(this.label, '参数.' + this.category)
 }
-urule.ParameterValue.prototype.initData = function (data) {
+urule.ParameterValue.prototype.initData = function(data) {
   this.setValue(data)
 }
 
-urule.ParameterValue.prototype.toXml = function () {
+urule.ParameterValue.prototype.toXml = function() {
   if (!this.category || this.category == '') {
     throw '参数不能为空！'
   }
   var xml = 'category="' + this.category + '"'
   return xml
 }
-urule.ParameterValue.prototype.getContainer = function () {
+urule.ParameterValue.prototype.getContainer = function() {
   return this.container
 }
