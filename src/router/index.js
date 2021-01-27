@@ -18,46 +18,17 @@ const routes = [
     }]
   },
   {
-    path: '/data',
+    path: '/urule',
     component: Layout,
-    meta: { title: '基础数据管理', icon: 'attr' },
+    meta: { title: 'urule-Vue', icon: 'attr' },
     children: [
       {
         path: 'type',
-        component: () => import('@/views/dataManage/index'),
-        meta: { title: '类型管理', icon: 'attr' }
-      },
-      {
-        path: 'typeAdd',
-        name: 'typeAdd',
-        hidden: true,
-        component: () => import('@/views/dataManage/add'),
-        meta: { title: '新增or修改', icon: 'attr' }
-      },
-      {
-        path: 'methods',
         component: () => import('@/views/attr/index'),
-        meta: { title: '方法管理', icon: 'attr' }
+        meta: { title: 'Vue版本urule决策集', icon: 'attr' }
       },
-      {
-        path: 'parameter',
-        component: () => import('@/views/attr/index'),
-        meta: { title: '规则参数整理', icon: 'attr' }
-      }
     ]
   },
-  // {
-  //   path: '/type',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'type',
-  //       name: 'type',
-  //       component: () => import('@/views/type/index'),
-  //       meta: { title: '扩展类型管理', icon: 'type' }
-  //     }
-  //   ]
-  // },
   {
     path: '/404',
     name: '404',
