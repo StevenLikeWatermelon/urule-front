@@ -5,44 +5,66 @@
 </template>
 
 <script>
-import urule from '@/components/urule/editor/urule/index.vue'
+import urule from "@/components/urule/editor/urule/index.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    urule
+    urule,
   },
   data() {
     return {
-      initData: {
-        name: 'rule',
-        lhs: {
-          criterion: {
-            criterions: [
+      conditionTree: {
+        separator: "and",
+        children: [
+          {
+            firstParamField: "swj自选类型参数.Float",
+            secondParamField: "33",
+            secondParamIsConstant: 1,
+            operation: "LessThen",
+          },
+          {
+            separator: "and",
+            children: [
               {
-                op: 'GreaterThen',
-                left: {
-                  variableCategory: 't1'
-                },
-                value: {
-                  content: '444',
-                  valueType: 'Input'
-                }
-              }
+                firstParamField: "ssssd",
+                secondParamField: "param1y",
+                operation: "GreaterThen",
+              },
+              {
+                firstParamField:
+                  "swj自选类型参数.Integer.有一些字段的类型.Integer.有一些字段的类型",
+                operation: "Null",
+              },
             ],
-            junctionType: 'and'
-          }
-        }
-      }
-    }
+          },
+          {
+            separator: "and",
+            children: [
+              {
+                firstParamField: "param1",
+                secondParamField: "23",
+                secondParamIsConstant: 1,
+                operation: "GreaterThen",
+              },
+            ],
+          },
+          {
+            firstParamField: "param1",
+            secondParamField: "param1",
+            operation: "GreaterThen",
+          },
+        ],
+      },
+    };
   },
   methods: {
     getSuccess(data) {
-      console.log(data)
+      console.log(data);
     },
     getError(error) {
-      this.$message.error(error)
-    }
-  }
-}
+      this.$message.error(error);
+    },
+  },
+};
 </script>
