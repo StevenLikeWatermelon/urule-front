@@ -1,7 +1,5 @@
 <template>
-  <div class="urule-container">
-
-  </div>
+  <div class="urule-container" />
 </template>
 
 <script>
@@ -47,8 +45,13 @@ import './NamedReferenceValue.js'
 import './Condition.js'
 import './Rule.js'
 export default {
-  props: ['initData'],
-  mounted () {
+  props: ['initData', 'manualSave'],
+  data() {
+    return {
+
+    }
+  },
+  mounted() {
     setTimeout(() => {
       const container = $(this.$el)
       let initData = null
@@ -58,19 +61,14 @@ export default {
           initData = this.initData
         }
       }
-      container.urule(initData, this.successCallBack, this.errorCallback)
+      container.urule(initData, this.successCallBack, this.errorCallback, this.manualSave)
     }, 100)
   },
-  data () {
-    return {
-
-    }
-  },
   methods: {
-    successCallBack (data) {
+    successCallBack(data) {
       this.$emit('success', data)
     },
-    errorCallback (error) {
+    errorCallback(error) {
       this.$emit('error', error)
     }
   }

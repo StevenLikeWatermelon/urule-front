@@ -1,6 +1,6 @@
 <template>
   <div class="urule-html">
-    <urule-html @success="successCallBack" @error="errorCallBack" />
+    <urule-html :init-data="initData" :manual-save="manualSave" @success="successCallBack" @error="errorCallBack" />
     <Parameter-modal ref="selectParameter" />
   </div>
 </template>
@@ -12,6 +12,18 @@ export default {
   components: {
     uruleHtml,
     ParameterModal
+  },
+  props: {
+    manualSave: {
+      type: Boolean,
+      default: true
+    },
+    initData: {
+      type: null,
+      default() {
+        return {}
+      }
+    }
   },
   mounted() {
     window.showSelectParameterMenu = this.showSelectParameterMenu

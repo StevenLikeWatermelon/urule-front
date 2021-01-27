@@ -1,0 +1,114 @@
+{
+    "name": "rule",
+    "lhs": {
+        "criterion": {
+            "children": [
+                {
+                    "op": "GreaterThen",
+                    "left": {
+                        "variableCategory": "k1"
+                    },
+                    "value": {
+                        "content": "100",
+                        "valueType": "Input"
+                    }
+                },
+                {
+                    "op": "GreaterThen",
+                    "left": {
+                        "variableCategory": "k1"
+                    },
+                    "value": {
+                        "content": "100",
+                        "valueType": "Input"
+                    }
+                },
+                {
+                    "children": [
+                        {
+                            "op": "GreaterThen",
+                            "left": {
+                                "variableCategory": "k1"
+                            },
+                            "value": {
+                                "content": "200",
+                                "valueType": "Input"
+                            }
+                        },
+                        {
+                            "op": "GreaterThen",
+                            "left": {
+                                "variableCategory": "k1"
+                            },
+                            "value": {
+                                "content": "200",
+                                "valueType": "Input"
+                            }
+                        },
+                        {
+                            "children": [
+                                {
+                                    "op": "GreaterThen",
+                                    "left": {
+                                        "variableCategory": "k1"
+                                    },
+                                    "value": {
+                                        "content": "200",
+                                        "valueType": "Input"
+                                    }
+                                },
+                                {
+                                    "op": "GreaterThen",
+                                    "left": {
+                                        "variableCategory": "k1"
+                                    },
+                                    "value": {
+                                        "content": "50",
+                                        "valueType": "Input"
+                                    }
+                                }
+                            ],
+                            "junctionType": "and"
+                        },
+                        {
+                            "children": [
+                                {
+                                    "op": "GreaterThenEquals",
+                                    "left": {
+                                        "variableCategory": "k1"
+                                    },
+                                    "value": {
+                                        "datatype": "Object",
+                                        "variableName": "test",
+                                        "variableLabel": "test",
+                                        "valueType": "Parameter"
+                                    }
+                                },
+                                {
+                                    "op": "GreaterThen",
+                                    "left": {
+                                        "variableCategory": "k1"
+                                    },
+                                    "value": {
+                                        "content": "100",
+                                        "valueType": "Input"
+                                    }
+                                }
+                            ],
+                            "junctionType": "and"
+                        }
+                    ],
+                    "junctionType": "and"
+                }
+            ],
+            "junctionType": "and"
+        }
+    },
+    "rhs": {
+        "actions": []
+    },
+    "other": {},
+    "loopRule": false,
+    "remark": "",
+    "withElse": false
+}
