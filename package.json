@@ -30,6 +30,7 @@
     "vuex": "^3.4.0",
     "xl-element-ui": "^2.13.7",
     "xl-utils": "^1.0.19",
+    "xl-views": "^1.3.12",
     "xml-js": "^1.6.11"
   },
   "devDependencies": {
