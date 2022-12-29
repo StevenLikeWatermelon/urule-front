@@ -30,6 +30,18 @@ const routes = [
     ]
   },
   {
+    path: '/dmn',
+    component: Layout,
+    meta: { title: 'dmn-Vue', icon: 'attr' },
+    children: [
+      {
+        path: 'type',
+        component: () => import('@/views/attr/index'),
+        meta: { title: 'Vue版本urule决策集', icon: 'attr' }
+      },
+    ]
+  },
+  {
     path: '/404',
     name: '404',
     hidden: true,

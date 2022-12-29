@@ -29,6 +29,8 @@ module.exports = {
           ['^' + process.env.VUE_APP_BASE_API]: ''
         }
       }
+    },
+    overlay: {
     }
   },
   configureWebpack: {
@@ -37,6 +39,11 @@ module.exports = {
         '@': resolve('src')
       }
     }
+    // module: {
+    //   loaders: [
+    //     { test: /\.xml$/, loader: 'xml-loader' } // will load all .xml files with xml-loader by default
+    //   ]
+    // }
   },
   chainWebpack(config) {
     // it can improve the speed of the first screen, it is recommended to turn on preload
@@ -69,7 +76,12 @@ module.exports = {
         symbolId: 'icon-[name]'
       })
       .end()
-
+    config.module
+      .rule('xml')
+      .test(/\.xml$/)
+      .use('xml-loader')
+      .loader('xml-loader')
+      .end()
     config
       .when(process.env.NODE_ENV !== 'development',
         config => {

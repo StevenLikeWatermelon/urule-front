@@ -20,7 +20,11 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "dayjs": "^1.9.6",
+    "dmn-js": "^14.0.2",
+    "element-ui": "^2.15.12",
+    "flowdesigner": "^1.1.72",
     "js-cookie": "^2.2.1",
+    "js-feel": "^1.4.7",
     "nprogress": "^0.2.0",
     "path": "^0.12.7",
     "path-to-regexp": "^6.2.0",
@@ -31,7 +35,8 @@
     "xl-element-ui": "^2.13.7",
     "xl-utils": "^1.0.19",
     "xl-views": "^1.3.12",
-    "xml-js": "^1.6.11"
+    "xml-js": "^1.6.11",
+    "xml-loader": "^1.2.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.0",
