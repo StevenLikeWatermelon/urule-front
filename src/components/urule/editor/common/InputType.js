@@ -10,7 +10,7 @@ urule.InputType=function(endInfo,tip,functionProperty,rule){
 		URule.setDomContent(this.label,tip);
 		this.label.css({
 			"color":"gray"
-		});		
+		});
 	}else{
 		URule.setDomContent(this.label,"选择值类型");
 		this.label.css({
@@ -36,17 +36,17 @@ urule.InputType=function(endInfo,tip,functionProperty,rule){
 			label : "输入值",
 			name:"Input",
 			onClick : onClick
-		}, 
+		},
 		// {
 		// 	label : "选择变量",
 		// 	name:"Variable",
 		// 	onClick : onClick
-		// }, 
+		// },
 		// {
 		// 	label : "选择常量",
 		// 	name:"Constant",
 		// 	onClick : onClick
-		// }, 
+		// },
 		{
 			label : "选择参数",
 			name:"Parameter",
@@ -210,11 +210,11 @@ urule.InputType.prototype.toXml=function(){
 		xml+=this.variableValue.toXml();
 		this.type=this.variableValue.getType();
 	}else if(this.type=="Method"){
-		xml+=this.methodValue.toXml();		
+		xml+=this.methodValue.toXml();
 	}else if(this.type=="Parameter"){
-		xml+=this.parameterValue.toXml();		
+		xml+=this.parameterValue.toXml();
 	}else if(this.type=="CommonFunction"){
-		xml+=this.functionValue.toXml();		
+		xml+=this.functionValue.toXml();
 	}else{
 		xml+=this.constantValue.toXml();
 	}

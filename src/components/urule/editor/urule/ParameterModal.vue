@@ -8,7 +8,7 @@
     :close-on-click-modal="false"
     width="60%"
   >
-    <xl-cascader v-if="dialogVisible" v-model="selectValue" style="width: 600px" filterable :props="props" />
+    <xl-cascader v-if="dialogVisible" v-model="selectValue" style="width: 60%" filterable :props="props" />
     <span slot="footer" class="dialog-footer">
       <xl-button @click="closeModal">取 消</xl-button>
       <xl-button type="primary" @click="confirmSelect">确 定</xl-button>

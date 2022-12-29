@@ -81,7 +81,7 @@ urule.AssignmentAction.prototype.initData = function (data) {
 	}
   this.type = data.type;
   if (this.type && this.type == 'parameter') {
-    this.leftParameter.setValue(data)		
+    this.leftParameter.setValue(data)
 		this.leftVariable.getContainer().hide()
 		this.leftReference.getContainer().hide()
 		this.leftParameter.getContainer().show()
@@ -92,7 +92,7 @@ urule.AssignmentAction.prototype.initData = function (data) {
         this.leftReference.getContainer().show()
     }else {
     this.type = 'variable';
-    this.leftVariable.setValue(data)		
+    this.leftVariable.setValue(data)
 		this.leftParameter.getContainer().hide()
         this.leftReference.getContainer().hide()
         this.leftVariable.getContainer().show()
@@ -110,11 +110,11 @@ urule.AssignmentAction.prototype.initData = function (data) {
 urule.AssignmentAction.prototype.toXml = function () {
   var xml = '<assign ';
   if (this.type == 'variable') {
-    xml += this.leftVariable.toXml()		
+    xml += this.leftVariable.toXml()
 	} else if (this.type == 'NamedReference') {
     xml += this.leftReference.toXml()
     }else {
-    xml += this.leftParameter.toXml()				
+    xml += this.leftParameter.toXml()
 	}
   xml += ' type="' + this.type + '">';
   xml += this.inputType.toXml()

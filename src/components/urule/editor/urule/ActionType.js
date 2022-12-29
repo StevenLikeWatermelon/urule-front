@@ -2,6 +2,7 @@
  * @author GJ
  */
 urule.ActionType = function (parentContainer, rule) {
+
   this.uuid = Math.uuid()
 	parentContainer.prop('id', this.uuid)
 	this.rule = rule
@@ -76,7 +77,7 @@ urule.ActionType.prototype.initMenu = function (actionLibraries) {
   }]
  }
 	$.each(data || [], function (index, item) {
-    var springBeans = item.springBeans || [] 
+    var springBeans = item.springBeans || []
 		$.each(springBeans, function (i, springBean) {
       var menuItem = {
         name: springBean.id,
